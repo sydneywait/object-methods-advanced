@@ -105,3 +105,63 @@ const salesByWeek = [
         }
     }
 ]
+
+
+// Randall has come back with a new job for you. Each week, he wants to see a report of how many cars each salesperson sells for that week. Here's his requirements to display for each sale.
+
+// Display the first and last name of the sales agent.
+// salesByWeek[0].sales_agent.first_name
+// salesByWeek[0].sales_agent.last_name
+// Display all keys and values for the car sold.
+// salesByWeek[0].vehicle (keys, values, entries)
+// Display the gross profit made on the sale.
+// salesByWeek[0].gross_profit
+console.log(salesByWeek[0].sales_agent.first_name)
+
+
+salesByWeek.forEach(sale => {
+    const keyValueArray = Object.entries(sale.vehicle)
+    console.log(keyValueArray)
+
+    let keyValueString = ""
+    keyValueArray.forEach(pair =>
+        keyValueString += `<p>${pair[0]}: ${pair[1]}</p>`
+    )
+
+
+    document.querySelector("#sales-report").innerHTML += `<h2>${sale.sales_agent.first_name} ${sale.sales_agent.last_name}</h2><p>${keyValueString}</p><h3>Profit: $${sale.gross_profit}</h3>`
+
+})
+
+// You can use your existing data set from above because the amount of data in your array has no impact on implemeting a solution for searching all of the data for a string.
+
+// Your first task is to use object methods to match the value of all properties of the sales_agent object in each sale against the input from Randall. Put an input field in your DOM, attach a keypress event listener to it, and search when Randall presses enter. You are given some starter code below.
+
+const searchInput = document.querySelector("#searchInput")
+
+searchInput.addEventListener("keypress", event => {
+    if (event.charCode === 13) {
+        const searchTerm = event.target.value
+
+        salesByWeek.forEach(sale => {
+
+        let valueArray = Object.values(sale.sales_agent)
+
+            valueArray.forEach(value => {
+                console.log("value", value)
+
+                if (value.includes(searchTerm)){
+                    console.log("match")
+                    document.querySelector("#sales-report").innerHTML =""
+                    // keyValueString += `<p>${pair[0]}: ${pair[1]}</p>`
+
+                    document.querySelector("#sales-report").innerHTML += `<h2>${sale.sales_agent.first_name} ${sale.sales_agent.last_name}</h2><p>${keyValueString}</p><h3>Profit: $${sale.gross_profit}</h3>`
+
+                } else {
+                    console.log("no match")
+                }
+            })
+        })
+
+
+    }});
